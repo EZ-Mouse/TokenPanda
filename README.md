@@ -1,5 +1,23 @@
 # TokenPanda
 
+TokenPanda is an independent addon for **World of Warcraft: Mists of Pandaria Classic** that displays the current WoW Token price and recent price history directly in the game.
+
+The project includes:
+
+- **TokenPanda 1.0.0 Beta**: the in-game addon.
+- **TokenPandaTray 1.0.0 Beta**: the portable Windows companion app used to download and synchronize historical data.
+
+## Main features
+
+- Current WoW Token price.
+- Historical periods: 3D, 7D, 14D, 1M, 3M, 6M, and ALL.
+- Comparison with the previous equivalent period.
+- Minimized, normal, and analysis views.
+- Independent saved position for each view.
+- Visual alerts for trends, proximity to lows, and new lows.
+- Regions: US, EU, KR, and TW.
+- Eleven interface languages.
+
 ## Download TokenPanda 1.0.0 Beta
 
 TokenPanda requires both components:
@@ -19,24 +37,6 @@ Install it in:
 TokenPandaTray is the portable Windows companion app that downloads and synchronizes the historical data used by the addon.
 
 [View the full release and release notes](https://github.com/EZ-Mouse/TokenPanda/releases/tag/v1.0.0-beta)
-
-TokenPanda is an independent addon for **World of Warcraft: Mists of Pandaria Classic** that displays the current WoW Token price and recent price history directly in the game.
-
-The project includes:
-
-- **TokenPanda 1.0.0 Beta**: the in-game addon.
-- **TokenPandaTray 1.0.0 Beta**: the portable Windows companion app used to download and synchronize historical data.
-
-## Main features
-
-- Current WoW Token price.
-- Historical periods: 3D, 7D, 14D, 1M, 3M, 6M, and ALL.
-- Comparison with the previous equivalent period.
-- Minimized, normal, and analysis views.
-- Independent saved position for each view.
-- Visual alerts for trends, proximity to lows, and new lows.
-- Regions: US, EU, KR, and TW.
-- Eleven interface languages.
 
 ## Current public Beta
 
