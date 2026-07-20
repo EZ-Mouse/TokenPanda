@@ -75,7 +75,7 @@ SHA256SUMS.txt
 
 ## Preview
 
-![TokenPanda analysis view](Assets/tokenpanda-analysis.jpg)
+![TokenPanda analysis view](Assets/tokenpanda-analysis.jpeg)
 
 ## Compatibility
 
