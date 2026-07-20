@@ -1,5 +1,25 @@
 # TokenPanda
 
+## Download TokenPanda 1.0.0 Beta
+
+TokenPanda requires both components:
+
+### 1. TokenPanda Addon
+
+[![Download Addon](https://img.shields.io/badge/Download-TokenPanda_Addon-ffd700?style=for-the-badge&logo=github)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.0.0-beta/TokenPanda-1.0.0-beta.zip)
+
+Install it in:
+
+`World of Warcraft/_classic_/Interface/AddOns/`
+
+### 2. TokenPandaTray
+
+[![Download Tray App](https://img.shields.io/badge/Download-TokenPandaTray-7aa2f7?style=for-the-badge&logo=windows)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.0.0-beta/TokenPandaTray-1.0.0-beta.zip)
+
+TokenPandaTray is the portable Windows companion app that downloads and synchronizes the historical data used by the addon.
+
+[View the full release and release notes](https://github.com/EZ-Mouse/TokenPanda/releases/tag/v1.0.0-beta)
+
 TokenPanda is an independent addon for **World of Warcraft: Mists of Pandaria Classic** that displays the current WoW Token price and recent price history directly in the game.
 
 The project includes:
@@ -52,6 +72,10 @@ TokenPanda-1.0.0-beta.zip
 TokenPandaTray-1.0.0-beta.zip
 SHA256SUMS.txt
 ```
+
+## Preview
+
+![TokenPanda analysis view](assets/tokenpanda-analysis.png)
 
 ## Compatibility
 
