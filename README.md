@@ -6,7 +6,7 @@ TokenPanda requires both components:
 
 ### 1. TokenPanda Addon
 
-[![Download Addon](https://img.shields.io/badge/Download-TokenPanda_Addon-ffd700?style=for-the-badge&logo=github)](https://github.com/EZ-Mouse/TokenPanda/releases/latest/download/TokenPanda-1.0.0-beta.zip)
+[![Download Addon](https://img.shields.io/badge/Download-TokenPanda_Addon-ffd700?style=for-the-badge&logo=github)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.0.0-beta/TokenPanda-1.0.0-beta.zip)
 
 Install it in:
 
@@ -14,7 +14,7 @@ Install it in:
 
 ### 2. TokenPandaTray
 
-[![Download Tray App](https://img.shields.io/badge/Download-TokenPandaTray-7aa2f7?style=for-the-badge&logo=windows)](https://github.com/EZ-Mouse/TokenPanda/releases/latest/download/TokenPandaTray-1.0.0-beta.zip)
+[![Download Tray App](https://img.shields.io/badge/Download-TokenPandaTray-7aa2f7?style=for-the-badge&logo=windows)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.0.0-beta/TokenPandaTray-1.0.0-beta.zip)
 
 TokenPandaTray is the portable Windows companion app that downloads and synchronizes the historical data used by the addon.
 
