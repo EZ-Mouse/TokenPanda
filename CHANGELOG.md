@@ -1,67 +1,77 @@
-# TokenPandaTray 1.4.0 Beta
+# TokenPanda 1.4.0 Beta
 
 ## Release status
 
-This Beta promotes the validated `1.4.0-alpha-40` TokenPandaTray implementation to the
-shared TokenPanda 1.4.0 release line without changing its synchronization, recovery,
-RealmData provider, or watchdog behavior.
+TokenPanda 1.4.0 Beta promotes the fully validated 1.4.0 Alpha line, including the
+Purchase History, realm-aware purchase records, RealmData integration, and the final
+runtime localization refinements validated before release.
 
-## HistoricalData synchronization and recovery
+## Purchase History
 
-For every enabled Flavor + Region tuple, TokenPandaTray maintains:
+- Added a complete account-wide WoW Token Purchase History.
+- Successful WoW Token purchases can be captured automatically from the Blizzard purchase event.
+- Purchases can also be added manually.
+- Existing records can be edited by selecting a row.
+- Records can be deleted with confirmation.
+- Journalator WoW Token history can be imported from CSV.
+- Built-in Import Help documents the current Journalator export workflow.
+- Purchase records retain exact timestamp, price, character, realm, flavor, region, and origin metadata.
+- Leaving Price blank in Add/Edit resolves the most recent historical price at or before the purchase timestamp when available.
+- Purchase History can optionally display personal purchases on the historical chart.
+- Purchase markers use the exact purchase timestamp and provide contextual hover information.
+- Multiple purchases on the same calendar day are represented coherently in chart context.
 
-`TokenPanda\Data\<Flavor>\<Region>\HistoricalData.lua`
+## Realm-aware purchase records
 
-The HistoricalData watchdog detects missing, unreadable, empty, invalid, or degraded
-primary data and can recover from the best valid local catalog before requiring HTTP.
+- Purchase records now retain Realm information.
+- Add/Edit provides Realm autocomplete while preserving free-text entry.
+- Realm suggestions use TokenPandaTray RealmData when available, plus current/learned runtime sources.
+- RealmData is maintained independently for Classic and Retail across US, EU, KR, and TW.
+- Matchbox 2.0 continues to isolate Flavor + Region tuples and manual selection remains session-only.
 
-Recovery candidates include:
-1. a valid copy of the same tuple from another WoW installation;
-2. valid `.bak` data;
-3. the backend when no usable local catalog exists.
+## TokenPandaTray integration
 
-Writers avoid replacing a good backup with invalid or empty seed data.
+Updating TokenPandaTray to 1.4.0 Beta is recommended for the complete realm-data experience.
 
-## RealmData synchronization
+Older Tray versions remain compatible with TokenPanda 1.4.0 through the existing legacy
+fallback path, but realm-aware functionality can be limited when modern RealmData is not available.
 
-TokenPandaTray maintains:
+**TokenPandaTray fallback support will be removed in the next TokenPanda version.**
+Please update TokenPandaTray to the latest available version to keep full functionality.
 
-`TokenPanda\Data\<Flavor>\<Region>\RealmData.lua`
+## Historical data compatibility
 
-for enabled Classic/Retail + US/EU/KR/TW tuples.
+- Modern historical data remains authoritative at:
+  `Data/<Flavor>/<Region>/HistoricalData.lua`
+- The 1.4.0 Beta addon package includes a neutral root `HistoricalData.lua` compatibility stub.
+- The root file exists only so legacy TokenPandaTray output can still be loaded without a TOC warning.
+- Retail and modern installations continue to use the Flavor + Region Data structure.
+- Legacy fallback is scheduled for removal in TokenPanda 1.5.0.
 
-The validated provider pipeline includes:
-1. WoWAnalyzer GitHub-backed realm catalogs;
-2. WoWAudit GitHub-backed realm catalogs;
-3. the legacy wow-realm-status GraphQL provider;
-4. the legacy Blizzard Realm Status HTML provider.
+## Localization and UI polish
 
-Successful catalogs are merged and deduplicated. If all providers fail, the last valid
-RealmData is preserved and the tuple remains retryable.
+- Visible Purchase History, Import, Add/Edit, Matchbox, Import Help, and update-notice text is localized across all 11 supported locales.
+- Secondary windows now refresh correctly when the active TokenPanda Locale changes at runtime.
+- Import helper/status text refreshes without overwriting active errors or completed import results.
+- Add/Edit Price help refreshes without overwriting validation errors.
+- Chart tooltips are temporarily suppressed while Import Help is open.
+- Purchase History metadata tooltips are temporarily suppressed while Add/Edit is open.
 
-Missing, empty, or invalid RealmData can trigger startup recovery independently per tuple.
+Supported locales:
+`enUS`, `deDE`, `esES`, `esMX`, `frFR`, `itIT`, `koKR`, `ptBR`, `ruRU`, `zhCN`, `zhTW`.
 
-## Smart mode
+## Compatibility
 
-Smart mode detects whether World of Warcraft is running. Normal periodic synchronization
-can pause while WoW is active and resume when WoW is not running. Critical data protection
-continues to operate independently of the normal synchronization pause.
-
-## Legacy compatibility
-
-TokenPanda 1.4.0 is the final TokenPanda release line that retains legacy fallback compatibility.
-
-The root:
-
-`TokenPanda\HistoricalData.lua`
-
-is maintained only for that compatibility path. Modern TokenPanda data remains under
-`Data/<Flavor>/<Region>/`.
-
-Fallback support is planned for removal in TokenPanda 1.5.0.
+- World of Warcraft Classic
+- World of Warcraft Retail
+- Regions: US, EU, KR, TW
+- One addon package for both game flavors
 
 ## Packaging
 
-Public package contains exactly:
-- `TokenPandaTray.exe`
-- `SHA256.txt`
+Public addon package:
+
+`TokenPanda-1.4.0-beta.zip`
+
+The package contains one root folder, `TokenPanda/`, with `TokenPanda.toc` directly
+inside it. Development backup files are excluded.
