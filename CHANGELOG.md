@@ -1,27 +1,67 @@
-# Changelog
+# TokenPandaTray 1.4.0 Beta
 
-All important public changes to TokenPanda are documented here.
+## Release status
 
-## [1.0.0-beta] - 2026-07-20
+This Beta promotes the validated `1.4.0-alpha-40` TokenPandaTray implementation to the
+shared TokenPanda 1.4.0 release line without changing its synchronization, recovery,
+RealmData provider, or watchdog behavior.
 
-### First public Beta
+## HistoricalData synchronization and recovery
 
-- Initial public release of TokenPanda and TokenPandaTray.
-- Current price and historical WoW Token charts.
-- Periods: 3D, 7D, 14D, 1M, 3M, 6M, and ALL.
-- Comparison with the previous equivalent period.
-- Minimized, normal, and analysis views with independent positions.
-- Visual alerts for declining prices, proximity to recent lows, current lows, and new lows.
-- Regions: US, EU, KR, and TW.
-- Eleven supported interface languages.
-- Portable Windows companion app for automatic history synchronization.
-- Right-click minimap menu toggle and localized menu controls.
+For every enabled Flavor + Region tuple, TokenPandaTray maintains:
 
-### Packages
+`TokenPanda\Data\<Flavor>\<Region>\HistoricalData.lua`
 
-```text
-TokenPanda-1.0.0-beta.zip
-TokenPandaTray-1.0.0-beta.zip
-```
+The HistoricalData watchdog detects missing, unreadable, empty, invalid, or degraded
+primary data and can recover from the best valid local catalog before requiring HTTP.
 
-Internal Alpha history is intentionally not included in the public changelog.
+Recovery candidates include:
+1. a valid copy of the same tuple from another WoW installation;
+2. valid `.bak` data;
+3. the backend when no usable local catalog exists.
+
+Writers avoid replacing a good backup with invalid or empty seed data.
+
+## RealmData synchronization
+
+TokenPandaTray maintains:
+
+`TokenPanda\Data\<Flavor>\<Region>\RealmData.lua`
+
+for enabled Classic/Retail + US/EU/KR/TW tuples.
+
+The validated provider pipeline includes:
+1. WoWAnalyzer GitHub-backed realm catalogs;
+2. WoWAudit GitHub-backed realm catalogs;
+3. the legacy wow-realm-status GraphQL provider;
+4. the legacy Blizzard Realm Status HTML provider.
+
+Successful catalogs are merged and deduplicated. If all providers fail, the last valid
+RealmData is preserved and the tuple remains retryable.
+
+Missing, empty, or invalid RealmData can trigger startup recovery independently per tuple.
+
+## Smart mode
+
+Smart mode detects whether World of Warcraft is running. Normal periodic synchronization
+can pause while WoW is active and resume when WoW is not running. Critical data protection
+continues to operate independently of the normal synchronization pause.
+
+## Legacy compatibility
+
+TokenPanda 1.4.0 is the final TokenPanda release line that retains legacy fallback compatibility.
+
+The root:
+
+`TokenPanda\HistoricalData.lua`
+
+is maintained only for that compatibility path. Modern TokenPanda data remains under
+`Data/<Flavor>/<Region>/`.
+
+Fallback support is planned for removal in TokenPanda 1.5.0.
+
+## Packaging
+
+Public package contains exactly:
+- `TokenPandaTray.exe`
+- `SHA256.txt`
