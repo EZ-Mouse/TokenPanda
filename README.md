@@ -4,8 +4,8 @@ TokenPanda is an independent addon for **World of Warcraft Classic and Retail** 
 
 The project includes:
 
-- **TokenPanda 1.4.0 Beta** — the in-game addon.
-- **TokenPandaTray 1.4.0 Beta** — the portable Windows companion app used to synchronize and protect TokenPanda data.
+- **TokenPanda 1.5.0 Beta** — the in-game addon.
+- **TokenPandaTray 1.5.0 Beta** — the portable Windows companion app used to synchronize and protect TokenPanda data.
 
 ## Main features
 
@@ -28,46 +28,53 @@ The project includes:
 - Character, Realm, Flavor, Region, timestamp, price, and origin metadata.
 - Realm-aware purchase records and Realm autocomplete.
 - TokenPandaTray RealmData synchronization.
+- TokenPandaTray version awareness and update warning.
+- Required-data validation for HistoricalData and RealmData.
+- Improved critical-data recovery and protection.
+- Cross-tuple historical viewing without artificial flat-line extension.
+- Manual Refresh support for non-current tuples.
+- Correct handling of WoW Token prices above 1,000,000 gold.
+- Compact K formatting for very large graph-scale labels only.
 - Regions: US, EU, KR, and TW.
 - Eleven interface languages.
 
-## Download TokenPanda 1.4.0 Beta
+## Download TokenPanda 1.5.0 Beta
 
 ### 1. TokenPanda Addon
 
-[![Download Addon](https://img.shields.io/badge/Download-TokenPanda_Addon-ffd700?style=for-the-badge&logo=github)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.4.0-beta/TokenPanda-1.4.0-beta.zip)
+[![Download Addon](https://img.shields.io/badge/Download-TokenPanda_Addon-ffd700?style=for-the-badge&logo=github)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.5.0-beta/TokenPanda-1.5.0-beta.zip)
 
 Install the included `TokenPanda` folder in:
 
-Classic:
+Classic:  
 `World of Warcraft/_classic_/Interface/AddOns/`
 
-Retail:
+Retail:  
 `World of Warcraft/_retail_/Interface/AddOns/`
 
 ### 2. TokenPandaTray
 
-[![Download Tray App](https://img.shields.io/badge/Download-TokenPandaTray-7aa2f7?style=for-the-badge&logo=windows)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.4.0-beta/TokenPandaTray-1.4.0-beta.zip)
+[![Download Tray App](https://img.shields.io/badge/Download-TokenPandaTray-7aa2f7?style=for-the-badge&logo=windows)](https://github.com/EZ-Mouse/TokenPanda/releases/download/v1.5.0-beta/TokenPandaTray-1.5.0-beta.zip)
 
-TokenPandaTray is the portable Windows companion app that synchronizes HistoricalData and RealmData used by TokenPanda.
+TokenPandaTray is the portable Windows companion app that synchronizes and protects the HistoricalData and RealmData used by TokenPanda.
 
-**Updating TokenPandaTray to 1.4.0 Beta is strongly recommended** for the complete realm-aware experience. Older Tray versions remain compatible with TokenPanda 1.4.0 through legacy fallback, but some RealmData functionality may be limited.
+**TokenPandaTray 1.5.0 or newer is required for the complete TokenPanda 1.5.0 data experience.**
 
-**Legacy TokenPandaTray fallback support will be removed in the next TokenPanda version.**
+TokenPanda 1.5.0 no longer uses the legacy root HistoricalData compatibility path. Modern Flavor + Region data is now required.
 
-[View the full release and release notes](https://github.com/EZ-Mouse/TokenPanda/releases/tag/v1.4.0-beta)
+[View the full release and release notes](https://github.com/EZ-Mouse/TokenPanda/releases/tag/v1.5.0-beta)
 
 ## Current public Beta
 
-`TokenPanda 1.4.0 Beta`  
-`TokenPandaTray 1.4.0 Beta`
+`TokenPanda 1.5.0 Beta`  
+`TokenPandaTray 1.5.0 Beta`
 
 ## Quick installation
 
 1. Close World of Warcraft.
-2. Extract `TokenPanda-1.4.0-beta.zip`.
+2. Extract `TokenPanda-1.5.0-beta.zip`.
 3. Copy the `TokenPanda` folder into the appropriate AddOns directory.
-4. Extract `TokenPandaTray-1.4.0-beta.zip`.
+4. Extract `TokenPandaTray-1.5.0-beta.zip`.
 5. Run `TokenPandaTray.exe`.
 6. Select your World of Warcraft folder.
 7. Configure the Classic and Retail regions you want to synchronize.
@@ -93,15 +100,39 @@ Press the Flavor + Region selector, such as **[C · US]**, to inspect available 
 
 Manual selections apply only to the current session. After `/reload` or a complete restart, TokenPanda returns to the data source matching the current WoW client.
 
-## Data
+When inspecting a tuple different from the currently running WoW client, TokenPanda stops the graph at the timestamp of the last available sample instead of extending stale data as an artificial flat line.
 
-Modern historical data:
+A **[ Refresh ]** action is available for non-current tuples. Refreshing the addon only reloads data already written by TokenPandaTray, so force a data update in TokenPandaTray first when fresh external-tuple data is required.
+
+## TokenPandaTray version awareness
+
+TokenPanda can read the TokenPandaTray producer version from synchronized data and compare it with the minimum Tray version required by the addon.
+
+If the detected Tray version is missing, legacy, or below the required version, TokenPanda can display a red **[!]** warning beside the active Flavor + Region selector.
+
+Selecting the warning opens the TokenPandaTray Update Required notice.
+
+## Required data
+
+TokenPanda 1.5.0 validates the required data for the current Flavor + Region tuple.
+
+Historical data:  
 `Data/<Flavor>/<Region>/HistoricalData.lua`
 
-Realm catalogs:
+Realm catalogs:  
 `Data/<Flavor>/<Region>/RealmData.lua`
 
-TokenPanda 1.4.0 includes a neutral root `HistoricalData.lua` compatibility stub only for legacy TokenPandaTray fallback. This path is scheduled for removal in TokenPanda 1.5.0.
+Both files are part of the modern TokenPanda data contract.
+
+The previous root `HistoricalData.lua` compatibility path and addon legacy fallback logic have been removed.
+
+## Data protection and recovery
+
+TokenPandaTray protects the modern TokenPanda data structure and can recover missing, empty, invalid, or unusable required data.
+
+Critical recovery remains available independently from the normal Smart mode synchronization pause.
+
+Recovery can use valid local copies and configured backend sources while preserving the Flavor + Region data structure.
 
 ## Chart reference
 
@@ -109,6 +140,10 @@ TokenPanda 1.4.0 includes a neutral root `HistoricalData.lua` compatibility stub
 - **Red line:** previous equivalent period.
 - **Gray line:** approximate projected trend.
 - **Purchase marker:** optional personal WoW Token purchase indicator.
+
+TokenPanda displays the real WoW Token price as a complete gold value and does not abbreviate or reinterpret it.
+
+For very large values, only the graph's Y-axis scale may use compact `K` labels to preserve readability. The actual price, historical values, hover tooltips, Purchase History, and variation remain complete and precise.
 
 ## Projection notice
 
@@ -118,8 +153,8 @@ Projected values represent only a possible trend. They are not guaranteed future
 
 Public release assets:
 
-`TokenPanda-1.4.0-beta.zip`  
-`TokenPandaTray-1.4.0-beta.zip`  
+`TokenPanda-1.5.0-beta.zip`  
+`TokenPandaTray-1.5.0-beta.zip`  
 `SHA256SUMS.txt`
 
 ## Compatibility
